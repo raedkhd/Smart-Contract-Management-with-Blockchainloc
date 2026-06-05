@@ -14,16 +14,200 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contract_activity: {
+        Row: {
+          actor_id: string | null
+          contract_id: string
+          created_at: string
+          event: string
+          id: string
+          payload: Json | null
+        }
+        Insert: {
+          actor_id?: string | null
+          contract_id: string
+          created_at?: string
+          event: string
+          id?: string
+          payload?: Json | null
+        }
+        Update: {
+          actor_id?: string | null
+          contract_id?: string
+          created_at?: string
+          event?: string
+          id?: string
+          payload?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contract_activity_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "contracts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contract_approvals: {
+        Row: {
+          approver_id: string | null
+          contract_id: string
+          created_at: string
+          id: string
+          kind: Database["public"]["Enums"]["approval_kind"]
+          note: string | null
+          signed_at: string | null
+          status: Database["public"]["Enums"]["approval_status"]
+        }
+        Insert: {
+          approver_id?: string | null
+          contract_id: string
+          created_at?: string
+          id?: string
+          kind: Database["public"]["Enums"]["approval_kind"]
+          note?: string | null
+          signed_at?: string | null
+          status?: Database["public"]["Enums"]["approval_status"]
+        }
+        Update: {
+          approver_id?: string | null
+          contract_id?: string
+          created_at?: string
+          id?: string
+          kind?: Database["public"]["Enums"]["approval_kind"]
+          note?: string | null
+          signed_at?: string | null
+          status?: Database["public"]["Enums"]["approval_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contract_approvals_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "contracts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contracts: {
+        Row: {
+          compiler: string | null
+          created_at: string
+          description: string | null
+          id: string
+          license: string | null
+          name: string
+          network: Database["public"]["Enums"]["contract_network"]
+          owner_id: string
+          source_code: string
+          stage: Database["public"]["Enums"]["contract_stage"]
+          updated_at: string
+          version: string
+        }
+        Insert: {
+          compiler?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          license?: string | null
+          name: string
+          network?: Database["public"]["Enums"]["contract_network"]
+          owner_id: string
+          source_code?: string
+          stage?: Database["public"]["Enums"]["contract_stage"]
+          updated_at?: string
+          version?: string
+        }
+        Update: {
+          compiler?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          license?: string | null
+          name?: string
+          network?: Database["public"]["Enums"]["contract_network"]
+          owner_id?: string
+          source_code?: string
+          stage?: Database["public"]["Enums"]["contract_stage"]
+          updated_at?: string
+          version?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          email: string | null
+          id: string
+          updated_at: string
+          wallet_address: string | null
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id: string
+          updated_at?: string
+          wallet_address?: string | null
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          updated_at?: string
+          wallet_address?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "legal" | "viewer"
+      approval_kind: "legal_review" | "security_audit" | "final_signoff"
+      approval_status: "pending" | "approved" | "rejected"
+      contract_network:
+        | "ethereum"
+        | "arbitrum"
+        | "optimism"
+        | "base"
+        | "polygon"
+        | "sepolia"
+      contract_stage: "draft" | "review" | "audit" | "approved" | "deployed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +334,19 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "legal", "viewer"],
+      approval_kind: ["legal_review", "security_audit", "final_signoff"],
+      approval_status: ["pending", "approved", "rejected"],
+      contract_network: [
+        "ethereum",
+        "arbitrum",
+        "optimism",
+        "base",
+        "polygon",
+        "sepolia",
+      ],
+      contract_stage: ["draft", "review", "audit", "approved", "deployed"],
+    },
   },
 } as const
