@@ -18,8 +18,9 @@ export const listContracts = createServerFn({ method: "GET" })
     if (error) throw new Error(error.message);
 
     const ownerIds = Array.from(new Set((data ?? []).map((c) => c.owner_id)));
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: profiles } = ownerIds.length
-      ? await supabase.from("profiles").select("id, display_name, email").in("id", ownerIds)
+      ? await supabaseAdmin.from("profiles").select("id, display_name, email").in("id", ownerIds)
       : { data: [] as { id: string; display_name: string | null; email: string | null }[] };
 
     const profileById = new Map((profiles ?? []).map((p) => [p.id, p]));
