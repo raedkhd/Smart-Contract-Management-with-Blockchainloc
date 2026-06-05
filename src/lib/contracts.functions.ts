@@ -64,8 +64,9 @@ export const getContract = createServerFn({ method: "GET" })
         ],
       ),
     );
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: profiles } = userIds.length
-      ? await supabase.from("profiles").select("id, display_name, email").in("id", userIds)
+      ? await supabaseAdmin.from("profiles").select("id, display_name, email").in("id", userIds)
       : { data: [] as { id: string; display_name: string | null; email: string | null }[] };
     const profileById = new Map((profiles ?? []).map((p) => [p.id, p]));
 
