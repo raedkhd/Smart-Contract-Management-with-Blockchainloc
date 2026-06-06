@@ -5,6 +5,17 @@ import { listContracts } from "@/lib/contracts.functions";
 import { NetworkBadge } from "@/components/badges";
 
 export const Route = createFileRoute("/_authenticated/lifecycle")({
+  head: () => ({
+    meta: [
+      { title: "Lifecycle Board — Protocol Vault" },
+      { name: "description", content: "Track every contract from draft to deployment across review and audit stages." },
+      { property: "og:title", content: "Lifecycle Board — Protocol Vault" },
+      { property: "og:description", content: "Track every contract from draft to deployment across review and audit stages." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://guard-chain-studio.lovable.app/lifecycle" },
+    ],
+  }),
   component: LifecyclePage,
 });
 

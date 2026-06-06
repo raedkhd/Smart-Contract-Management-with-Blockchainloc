@@ -8,7 +8,17 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/auth")({
-  head: () => ({ meta: [{ title: "Sign in — Protocol Vault" }] }),
+  head: () => ({
+    meta: [
+      { title: "Sign in — Protocol Vault" },
+      { name: "description", content: "Sign in to your Protocol Vault workspace to manage smart contracts and team approvals." },
+      { property: "og:title", content: "Sign in — Protocol Vault" },
+      { property: "og:description", content: "Sign in to your Protocol Vault workspace to manage smart contracts and team approvals." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://guard-chain-studio.lovable.app/auth" },
+    ],
+  }),
   component: AuthPage,
 });
 

@@ -5,6 +5,17 @@ import { listAudits } from "@/lib/contracts.functions";
 import { format } from "date-fns";
 
 export const Route = createFileRoute("/_authenticated/audits")({
+  head: () => ({
+    meta: [
+      { title: "Security Audits — Protocol Vault" },
+      { name: "description", content: "Audit reviews recorded against contracts across the workspace." },
+      { property: "og:title", content: "Security Audits — Protocol Vault" },
+      { property: "og:description", content: "Audit reviews recorded against contracts across the workspace." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://guard-chain-studio.lovable.app/audits" },
+    ],
+  }),
   component: AuditsPage,
 });
 
