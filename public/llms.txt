@@ -1,0 +1,5 @@
+# Protocol Vault
+
+> Team workspace for managing EVM smart contracts from draft to mainnet deployment.
+
+Protocol Vault helps engineering, legal, and compliance teams collaborate on Solidity contracts before they ship. Features include versioned source code storage, lifecycle stage tracking, security audit logging, and role-based approvals.
