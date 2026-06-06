@@ -12,6 +12,17 @@ import { format } from "date-fns";
 import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/contracts/$id")({
+  head: () => ({
+    meta: [
+      { title: "Contract Details — Protocol Vault" },
+      { name: "description", content: "Review contract source, lifecycle stage, and approval timeline." },
+      { property: "og:title", content: "Contract Details — Protocol Vault" },
+      { property: "og:description", content: "Review contract source, lifecycle stage, and approval timeline." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://guard-chain-studio.lovable.app/contracts" },
+    ],
+  }),
   component: ContractDetail,
 });
 

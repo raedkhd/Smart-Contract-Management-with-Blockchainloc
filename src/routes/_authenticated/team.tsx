@@ -7,6 +7,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/team")({
+  head: () => ({
+    meta: [
+      { title: "Team — Protocol Vault" },
+      { name: "description", content: "Workspace members and their permission levels." },
+      { property: "og:title", content: "Team — Protocol Vault" },
+      { property: "og:description", content: "Workspace members and their permission levels." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://guard-chain-studio.lovable.app/team" },
+    ],
+  }),
   component: TeamPage,
 });
 

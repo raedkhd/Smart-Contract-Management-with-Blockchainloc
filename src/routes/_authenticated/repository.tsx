@@ -15,6 +15,17 @@ import { formatDistanceToNow } from "date-fns";
 import { Plus } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/repository")({
+  head: () => ({
+    meta: [
+      { title: "Contract Repository — Protocol Vault" },
+      { name: "description", content: "Manage the lifecycle of your Solidity deployments from draft to mainnet execution." },
+      { property: "og:title", content: "Contract Repository — Protocol Vault" },
+      { property: "og:description", content: "Manage the lifecycle of your Solidity deployments from draft to mainnet execution." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://guard-chain-studio.lovable.app/repository" },
+    ],
+  }),
   component: RepositoryPage,
 });
 
