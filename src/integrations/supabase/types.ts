@@ -14,6 +14,138 @@ export type Database = {
   }
   public: {
     Tables: {
+      audit_logs: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          entity_id: string | null
+          entity_type: string
+          id: string
+          ip_address: string | null
+          payload: Json | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type: string
+          id?: string
+          ip_address?: string | null
+          payload?: Json | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string
+          id?: string
+          ip_address?: string | null
+          payload?: Json | null
+        }
+        Relationships: []
+      }
+      blockchain_networks: {
+        Row: {
+          chain_id: number | null
+          created_at: string
+          explorer_url: string | null
+          id: string
+          is_active: boolean
+          is_testnet: boolean
+          name: string
+          native_currency: string | null
+          rpc_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          chain_id?: number | null
+          created_at?: string
+          explorer_url?: string | null
+          id?: string
+          is_active?: boolean
+          is_testnet?: boolean
+          name: string
+          native_currency?: string | null
+          rpc_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          chain_id?: number | null
+          created_at?: string
+          explorer_url?: string | null
+          id?: string
+          is_active?: boolean
+          is_testnet?: boolean
+          name?: string
+          native_currency?: string | null
+          rpc_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      blockchain_transactions: {
+        Row: {
+          block_number: number | null
+          created_at: string
+          from_address: string | null
+          gas_used: number | null
+          id: string
+          network_id: string | null
+          raw: Json | null
+          smart_contract_id: string | null
+          status: string
+          to_address: string | null
+          tx_hash: string
+          value: number | null
+        }
+        Insert: {
+          block_number?: number | null
+          created_at?: string
+          from_address?: string | null
+          gas_used?: number | null
+          id?: string
+          network_id?: string | null
+          raw?: Json | null
+          smart_contract_id?: string | null
+          status?: string
+          to_address?: string | null
+          tx_hash: string
+          value?: number | null
+        }
+        Update: {
+          block_number?: number | null
+          created_at?: string
+          from_address?: string | null
+          gas_used?: number | null
+          id?: string
+          network_id?: string | null
+          raw?: Json | null
+          smart_contract_id?: string | null
+          status?: string
+          to_address?: string | null
+          tx_hash?: string
+          value?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blockchain_transactions_network_id_fkey"
+            columns: ["network_id"]
+            isOneToOne: false
+            referencedRelation: "blockchain_networks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "blockchain_transactions_smart_contract_id_fkey"
+            columns: ["smart_contract_id"]
+            isOneToOne: false
+            referencedRelation: "smart_contracts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contract_activity: {
         Row: {
           actor_id: string | null
@@ -90,6 +222,85 @@ export type Database = {
           },
         ]
       }
+      contract_participants: {
+        Row: {
+          contract_id: string
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          role: string | null
+          user_id: string | null
+          wallet_address: string | null
+        }
+        Insert: {
+          contract_id: string
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          role?: string | null
+          user_id?: string | null
+          wallet_address?: string | null
+        }
+        Update: {
+          contract_id?: string
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          role?: string | null
+          user_id?: string | null
+          wallet_address?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contract_participants_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "contracts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contract_versions: {
+        Row: {
+          changelog: string | null
+          contract_id: string
+          created_at: string
+          created_by: string | null
+          id: string
+          source_code: string
+          version: string
+        }
+        Insert: {
+          changelog?: string | null
+          contract_id: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          source_code?: string
+          version: string
+        }
+        Update: {
+          changelog?: string | null
+          contract_id?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          source_code?: string
+          version?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contract_versions_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "contracts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contracts: {
         Row: {
           compiler: string | null
@@ -135,6 +346,104 @@ export type Database = {
         }
         Relationships: []
       }
+      documents: {
+        Row: {
+          contract_id: string
+          created_at: string
+          file_path: string | null
+          file_url: string | null
+          id: string
+          mime_type: string | null
+          name: string
+          size_bytes: number | null
+          uploaded_by: string | null
+        }
+        Insert: {
+          contract_id: string
+          created_at?: string
+          file_path?: string | null
+          file_url?: string | null
+          id?: string
+          mime_type?: string | null
+          name: string
+          size_bytes?: number | null
+          uploaded_by?: string | null
+        }
+        Update: {
+          contract_id?: string
+          created_at?: string
+          file_path?: string | null
+          file_url?: string | null
+          id?: string
+          mime_type?: string | null
+          name?: string
+          size_bytes?: number | null
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "contracts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          body: string | null
+          created_at: string
+          id: string
+          link: string | null
+          read_at: string | null
+          title: string
+          type: string | null
+          user_id: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          link?: string | null
+          read_at?: string | null
+          title: string
+          type?: string | null
+          user_id: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          link?: string | null
+          read_at?: string | null
+          title?: string
+          type?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      permissions: {
+        Row: {
+          code: string
+          created_at: string
+          description: string | null
+          id: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          description?: string | null
+          id?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -161,6 +470,203 @@ export type Database = {
           wallet_address?: string | null
         }
         Relationships: []
+      }
+      role_permissions: {
+        Row: {
+          created_at: string
+          id: string
+          permission_id: string
+          role_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          permission_id: string
+          role_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          permission_id?: string
+          role_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "role_permissions_permission_id_fkey"
+            columns: ["permission_id"]
+            isOneToOne: false
+            referencedRelation: "permissions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "role_permissions_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      roles: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      signatures: {
+        Row: {
+          contract_id: string
+          created_at: string
+          id: string
+          ip_address: string | null
+          participant_id: string | null
+          signature_hash: string | null
+          signed_at: string | null
+          signer_id: string | null
+          status: string
+        }
+        Insert: {
+          contract_id: string
+          created_at?: string
+          id?: string
+          ip_address?: string | null
+          participant_id?: string | null
+          signature_hash?: string | null
+          signed_at?: string | null
+          signer_id?: string | null
+          status?: string
+        }
+        Update: {
+          contract_id?: string
+          created_at?: string
+          id?: string
+          ip_address?: string | null
+          participant_id?: string | null
+          signature_hash?: string | null
+          signed_at?: string | null
+          signer_id?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "signatures_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "contracts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "signatures_participant_id_fkey"
+            columns: ["participant_id"]
+            isOneToOne: false
+            referencedRelation: "contract_participants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      smart_contracts: {
+        Row: {
+          abi: Json | null
+          address: string | null
+          bytecode: string | null
+          contract_id: string
+          created_at: string
+          deployed_at: string | null
+          deployed_by: string | null
+          id: string
+          network_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          abi?: Json | null
+          address?: string | null
+          bytecode?: string | null
+          contract_id: string
+          created_at?: string
+          deployed_at?: string | null
+          deployed_by?: string | null
+          id?: string
+          network_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          abi?: Json | null
+          address?: string | null
+          bytecode?: string | null
+          contract_id?: string
+          created_at?: string
+          deployed_at?: string | null
+          deployed_by?: string | null
+          id?: string
+          network_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "smart_contracts_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "contracts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "smart_contracts_network_id_fkey"
+            columns: ["network_id"]
+            isOneToOne: false
+            referencedRelation: "blockchain_networks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_role_assignments: {
+        Row: {
+          created_at: string
+          id: string
+          role_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_role_assignments_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
