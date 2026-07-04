@@ -47,6 +47,30 @@ export type Database = {
         }
         Relationships: []
       }
+      audits: {
+        Row: {
+          action: string
+          actor_id: string
+          created_at: string
+          details: Json
+          id: string
+        }
+        Insert: {
+          action: string
+          actor_id: string
+          created_at?: string
+          details?: Json
+          id?: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string
+          created_at?: string
+          details?: Json
+          id?: string
+        }
+        Relationships: []
+      }
       blockchain_networks: {
         Row: {
           chain_id: number | null
@@ -390,6 +414,33 @@ export type Database = {
           },
         ]
       }
+      networks: {
+        Row: {
+          chain_id: number
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          rpc_url: string | null
+        }
+        Insert: {
+          chain_id: number
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          rpc_url?: string | null
+        }
+        Update: {
+          chain_id?: number
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          rpc_url?: string | null
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           body: string | null
@@ -639,6 +690,44 @@ export type Database = {
           },
         ]
       }
+      team_members: {
+        Row: {
+          created_at: string
+          id: string
+          role_id: string
+          updated_at: string
+          user_id: string
+          wallet_address: string | null
+          workspace_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role_id: string
+          updated_at?: string
+          user_id: string
+          wallet_address?: string | null
+          workspace_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role_id?: string
+          updated_at?: string
+          user_id?: string
+          wallet_address?: string | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "team_members_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_role_assignments: {
         Row: {
           created_at: string
@@ -701,6 +790,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_workspace_member: { Args: { _workspace_id: string }; Returns: boolean }
     }
     Enums: {
       app_role: "admin" | "legal" | "viewer"
