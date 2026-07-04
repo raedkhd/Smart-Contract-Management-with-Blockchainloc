@@ -34,3 +34,20 @@ export const setUserRole = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+export const setTeamMemberRole = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input) =>
+    z.object({ member_id: z.string().uuid(), role_id: z.string().uuid() }).parse(input),
+  )
+  .handler(async ({ context, data }) => {
+    await requireAdmin(context.supabase, context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("team_members")
+      .update({ role_id: data.role_id })
+      .eq("id", data.member_id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
