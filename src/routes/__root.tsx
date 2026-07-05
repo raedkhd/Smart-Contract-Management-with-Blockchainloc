@@ -140,13 +140,19 @@ function AuthSync() {
   return null;
 }
 
+import { WagmiProvider } from "wagmi";
+import { wagmiConfig, initAppKit } from "@/lib/appkit";
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => { initAppKit(); }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthSync />
-      <Outlet />
-    </QueryClientProvider>
+    <WagmiProvider config={wagmiConfig}>
+      <QueryClientProvider client={queryClient}>
+        <AuthSync />
+        <Outlet />
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
