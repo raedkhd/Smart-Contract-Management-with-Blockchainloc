@@ -15,7 +15,7 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        buffer: "buffer/",
+        buffer: "buffer",
       },
     },
     define: {
