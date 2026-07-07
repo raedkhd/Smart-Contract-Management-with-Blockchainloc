@@ -7,8 +7,8 @@ export default defineConfig({
   },
   plugins: [
     nodePolyfills({
-      include: ["buffer", "process", "util", "events"],
-      globals: { Buffer: true, global: true, process: true },
+      include: ["buffer", "util", "events"],
+      globals: { Buffer: true, global: true, process: false },
       protocolImports: true,
     }),
   ],
