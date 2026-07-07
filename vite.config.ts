@@ -12,4 +12,17 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    resolve: {
+      alias: {
+        buffer: "buffer/",
+      },
+    },
+    define: {
+      global: "globalThis",
+    },
+    optimizeDeps: {
+      include: ["buffer"],
+    },
+  },
 });
