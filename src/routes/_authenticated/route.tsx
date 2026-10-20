@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { getMe } from "@/lib/profile.functions";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar, MobileNav } from "@/components/app-sidebar";
 import { WalletButton } from "@/components/wallet-button";
 import { Toaster } from "@/components/ui/sonner";
 import { Button } from "@/components/ui/button";
@@ -33,12 +33,16 @@ function AuthenticatedLayout() {
     <div className="flex min-h-screen bg-zinc-50 text-zinc-900">
       <AppSidebar me={me ?? null} />
       <main className="flex-1 flex flex-col min-w-0">
-        <header className="h-14 border-b border-zinc-200 bg-zinc-50/80 backdrop-blur-sm flex items-center justify-end gap-3 px-8 sticky top-0 z-10">
-          <WalletButton initialAddress={me?.profile?.wallet_address ?? null} />
-          <Button variant="ghost" size="sm" onClick={signOut} className="text-xs">
-            <LogOut className="size-3.5 mr-1.5" /> Sign out
-          </Button>
+        <header className="h-14 border-b border-zinc-200 bg-zinc-50/80 backdrop-blur-sm flex items-center justify-between md:justify-end gap-2 px-4 md:px-8 sticky top-0 z-10">
+          <span className="md:hidden font-semibold tracking-tight text-sm">Protocol Vault</span>
+          <div className="flex items-center gap-2">
+            <WalletButton initialAddress={me?.profile?.wallet_address ?? null} />
+            <Button variant="ghost" size="sm" onClick={signOut} className="text-xs" aria-label="Sign out">
+              <LogOut className="size-3.5 md:mr-1.5" /> <span className="hidden md:inline">Sign out</span>
+            </Button>
+          </div>
         </header>
+        <MobileNav />
         <Outlet />
       </main>
       <Toaster />

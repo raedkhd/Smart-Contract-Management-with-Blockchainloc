@@ -5,6 +5,17 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
+  vite: {
+    optimizeDeps: {
+      include: [
+        "@tanstack/router-core",
+        "@tanstack/router-core/isServer",
+        "@tanstack/router-core/ssr/client",
+        "@tanstack/history",
+        "seroval",
+      ],
+    },
+  },
   plugins: [
     nodePolyfills({
       include: ["buffer", "util", "events"],

@@ -19,7 +19,7 @@ async function requireAdmin(supabase: ReturnType<typeof Object>, userId: string)
 
 export const setUserRole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) =>
+  .validator((input) =>
     z.object({ user_id: z.string().uuid(), role: Role }).parse(input),
   )
   .handler(async ({ context, data }) => {
@@ -37,7 +37,7 @@ export const setUserRole = createServerFn({ method: "POST" })
 
 export const setTeamMemberRole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) =>
+  .validator((input) =>
     z.object({ member_id: z.string().uuid(), role_id: z.string().uuid() }).parse(input),
   )
   .handler(async ({ context, data }) => {

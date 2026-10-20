@@ -15,7 +15,7 @@ export function AppSidebar({ me }: { me: { profile: { display_name: string | nul
   const displayName = me?.profile?.display_name || me?.profile?.email || "Member";
 
   return (
-    <aside className="w-64 border-r border-zinc-200 bg-zinc-100/50 flex flex-col shrink-0">
+    <aside className="hidden md:flex w-64 border-r border-zinc-200 bg-zinc-100/50 flex-col shrink-0 sticky top-0 h-screen">
       <div className="p-6">
         <div className="flex items-center gap-2 mb-8">
           <div className="size-6 bg-zinc-900 rounded-sm flex items-center justify-center">
@@ -58,5 +58,30 @@ export function AppSidebar({ me }: { me: { profile: { display_name: string | nul
         </div>
       </div>
     </aside>
+  );
+}
+
+export function MobileNav() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  return (
+    <nav className="md:hidden flex border-b border-zinc-200 bg-zinc-100/60 overflow-x-auto">
+      {nav.map((item) => {
+        const active = pathname.startsWith(item.to);
+        const Icon = item.icon;
+        return (
+          <Link
+            key={item.to}
+            to={item.to}
+            className={cn(
+              "flex flex-1 flex-col items-center gap-1 px-3 py-2 text-[11px] font-medium whitespace-nowrap",
+              active ? "text-zinc-900 bg-zinc-200/60" : "text-zinc-500",
+            )}
+          >
+            <Icon className="size-4" />
+            {item.label.replace(" Settings", "")}
+          </Link>
+        );
+      })}
+    </nav>
   );
 }

@@ -46,14 +46,14 @@ function TeamPage() {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
       <h1 className="text-2xl font-semibold tracking-tight mb-2">Team</h1>
       <p className="text-zinc-500 text-sm max-w-[56ch] mb-8">
         Workspace members and their permission level. {isAdmin ? "" : "Admin role required to change roles."}
       </p>
 
-      <div className="ring-1 ring-black/5 rounded-xl bg-zinc-100 overflow-hidden shadow-sm">
-        <table className="w-full text-left text-sm">
+      <div className="ring-1 ring-black/5 rounded-xl bg-zinc-100 overflow-x-auto shadow-sm">
+        <table className="w-full min-w-[640px] text-left text-sm">
           <thead className="bg-zinc-200/50 border-b border-zinc-200/80">
             <tr>
               <th className="px-4 py-3 font-medium text-zinc-500">Member</th>
