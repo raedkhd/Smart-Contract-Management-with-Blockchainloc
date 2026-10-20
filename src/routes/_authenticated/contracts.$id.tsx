@@ -75,12 +75,12 @@ function ContractDetail() {
   const { contract, approvals } = data;
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
       <Link to="/repository" className="text-xs text-zinc-500 hover:text-zinc-900 inline-flex items-center gap-1 mb-6">
         <ArrowLeft className="size-3.5" /> Repository
       </Link>
 
-      <div className="flex items-start justify-between gap-6 mb-8">
+      <div className="flex flex-col sm:flex-row items-start justify-between gap-4 sm:gap-6 mb-8">
         <div>
           <div className="flex items-center gap-3 mb-2">
             <h1 className="text-2xl font-semibold tracking-tight">{contract.name}</h1>

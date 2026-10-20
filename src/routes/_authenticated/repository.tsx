@@ -53,8 +53,8 @@ function RepositoryPage() {
   };
 
   return (
-    <div className="p-8">
-      <div className="mb-10 flex items-start justify-between gap-6">
+    <div className="p-4 md:p-8">
+      <div className="mb-10 flex flex-col sm:flex-row items-start justify-between gap-4 sm:gap-6">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight mb-2">Contract Repository</h1>
           <p className="text-zinc-500 text-sm max-w-[56ch]">
@@ -108,7 +108,7 @@ function RepositoryPage() {
         </Dialog>
       </div>
 
-      <div className="ring-1 ring-black/5 rounded-xl bg-zinc-100 overflow-hidden shadow-sm">
+      <div className="ring-1 ring-black/5 rounded-xl bg-zinc-100 overflow-x-auto shadow-sm">
         <table className="w-full min-w-[640px] text-left text-sm">
           <thead className="bg-zinc-200/50 border-b border-zinc-200/80">
             <tr>

@@ -32,7 +32,7 @@ function LifecyclePage() {
   const { data } = useQuery({ queryKey: ["contracts"], queryFn: () => list() });
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
       <h1 className="text-2xl font-semibold tracking-tight mb-2">Lifecycle Board</h1>
       <p className="text-zinc-500 text-sm max-w-[56ch] mb-8">
         Track every contract from draft to deployment across review and audit stages.

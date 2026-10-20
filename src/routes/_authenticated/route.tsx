@@ -33,7 +33,7 @@ function AuthenticatedLayout() {
     <div className="flex min-h-screen bg-zinc-50 text-zinc-900">
       <AppSidebar me={me ?? null} />
       <main className="flex-1 flex flex-col min-w-0">
-        <header className="h-14 border-b border-zinc-200 bg-zinc-50/80 backdrop-blur-sm flex items-center justify-end gap-3 px-8 sticky top-0 z-10">
+        <header className="h-14 border-b border-zinc-200 bg-zinc-50/80 backdrop-blur-sm flex items-center justify-between md:justify-end gap-2 px-4 md:px-8 sticky top-0 z-10">
           <WalletButton initialAddress={me?.profile?.wallet_address ?? null} />
           <Button variant="ghost" size="sm" onClick={signOut} className="text-xs">
             <LogOut className="size-3.5 mr-1.5" /> Sign out
