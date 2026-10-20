@@ -53,7 +53,7 @@ function TeamPage() {
       </p>
 
       <div className="ring-1 ring-black/5 rounded-xl bg-zinc-100 overflow-hidden shadow-sm">
-        <table className="w-full text-left text-sm">
+        <table className="w-full min-w-[640px] text-left text-sm">
           <thead className="bg-zinc-200/50 border-b border-zinc-200/80">
             <tr>
               <th className="px-4 py-3 font-medium text-zinc-500">Member</th>
