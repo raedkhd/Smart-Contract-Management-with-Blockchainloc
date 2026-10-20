@@ -63,7 +63,7 @@ export const listRoles = createServerFn({ method: "GET" })
 
 export const setWallet = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) =>
+  .validator((input) =>
     z.object({ address: z.string().regex(/^0x[a-fA-F0-9]{40}$/).nullable() }).parse(input),
   )
   .handler(async ({ context, data }) => {

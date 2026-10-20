@@ -32,7 +32,7 @@ export const listContracts = createServerFn({ method: "GET" })
 
 export const getContract = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { id: string }) => z.object({ id: z.string().uuid() }).parse(input))
+  .validator((input: { id: string }) => z.object({ id: z.string().uuid() }).parse(input))
   .handler(async ({ context, data }) => {
     const { supabase } = context;
     const { data: contract, error } = await supabase
@@ -85,7 +85,7 @@ export const getContract = createServerFn({ method: "GET" })
 
 export const createContract = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) =>
+  .validator((input) =>
     z.object({
       name: z.string().min(1).max(120),
       network: Network,
@@ -119,7 +119,7 @@ export const createContract = createServerFn({ method: "POST" })
 
 export const updateContractStage = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) => z.object({ id: z.string().uuid(), stage: Stage }).parse(input))
+  .validator((input) => z.object({ id: z.string().uuid(), stage: Stage }).parse(input))
   .handler(async ({ context, data }) => {
     const { supabase, userId } = context;
     const { error } = await supabase
@@ -138,7 +138,7 @@ export const updateContractStage = createServerFn({ method: "POST" })
 
 export const addApproval = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) =>
+  .validator((input) =>
     z.object({
       contract_id: z.string().uuid(),
       kind: ApprovalKind,
